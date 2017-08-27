@@ -1,0 +1,14 @@
+#loginBox{
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(0,0,0,.1);
+}
+#loginBox .login-form {
+    max-width: 300px;
+}
+#loginBox .login-form-forgot {
+    float: right;
+}
+#loginBox .login-form-button {
+    width: 100%;
+}
