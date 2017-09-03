@@ -1,6 +1,3 @@
-/**
- * Created by 47166 on 2017/7/28.
- */
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var path = require('path')
@@ -87,10 +84,11 @@ module.exports = {
       'Access-Control-Allow-Origin': '*',
     },
     proxy: {
-      '/api': {
+      '/api/*': {
         target: 'http://127.0.0.1:9309'
       }
     },
+    historyApiFallback: true,
     contentBase: './dist',
     compress: true,
     inline:true,

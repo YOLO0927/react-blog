@@ -4,9 +4,16 @@
 module.exports = {
   dev: {
     username: 'YOLO',
-    info: `Hey, you only live once, are you code farmer ? no, i'm engineer !`
+    interface: {
+      signin: '/api/signIn',
+      register: '/api/register'
+    }
   },
   build: {
-    username: 'production'
+    username: 'production',
+    interface: {
+      signin: '/api/signIn',
+      register: '/api/register'
+    }
   }
 }

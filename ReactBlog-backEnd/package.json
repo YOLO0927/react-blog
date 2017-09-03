@@ -9,7 +9,8 @@
   "author": "YOLO",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.4"
+    "express": "^4.15.4",
+    "mongoose": "^4.11.9"
   },
   "devDependencies": {
     "body-parser": "^1.17.2",

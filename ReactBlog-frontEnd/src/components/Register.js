@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
+import http from '../public/preRequest'
 
 const FormItem = Form.Item
 
@@ -10,7 +11,12 @@ class RegisterBox extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    // console.log(this.props.form.getFieldsValue())
+    let errorObj = this.props.form.getFieldsError()
+    for (var key in errorObj) {
+      if (errorObj[key]) {
+        return message.error('信息有误，请确认无误后再进行操作')
+      }
+    }
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.props.onSubmit(values)
@@ -19,14 +25,39 @@ class RegisterBox extends Component {
   }
 
   testPassword = (...args) => {
-    console.log(args)
     let form = this.props.form
     form.validateFields(['repeatPassword'], (err, values)=> {
-      if (values.repeatPassword && values.repeatPassword !== form.getFieldsValue(['password'])) {
+      if (!err && values.repeatPassword && values.repeatPassword !== form.getFieldsValue(['password']).password) {
         form.setFields({
           repeatPassword: {
             value: values.repeatPassword,
             errors: [new Error(`两次密码输入不一致`)]
+          }
+        })
+      }
+    })
+  }
+
+  testUserName = (...args) => {
+    let form = this.props.form
+    form.validateFields(['userName'], (err, values)=> {
+      if (!err) {
+        http(window.interface.register, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username: values.userName
+          })
+        }).then((data) => {
+          if (JSON.parse(data).data) {
+            form.setFields({
+              userName: {
+                value: values.userName,
+                errors: [new Error('该用户名已存在')]
+              }
+            })
           }
         })
       }
@@ -47,7 +78,7 @@ class RegisterBox extends Component {
                 }
               ]
             })(
-              <Input placeholder="用户名" prefix={<Icon type="user" style={{fontSize: 13}} />} />
+              <Input onBlur={(event) => this.testUserName(event)} placeholder="用户名" prefix={<Icon type="user" style={{fontSize: 13}} />} />
             )
           }
         </FormItem>

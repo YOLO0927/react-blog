@@ -4,5 +4,6 @@ module.exports = function (app) {
     res.send(sendString)
   })
 
-  app.use('/signIn', require('./signin'))
+  app.use('/api/signIn', require('./signin'))
+  app.use('/api/register', require('./register'))
 }

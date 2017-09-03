@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import RegisterComponent from './components/Register'
 import { Link, hashHistory } from 'react-router'
-import { Row, Col } from 'antd'
+import { Row, Col, message } from 'antd'
+import http from './public/preRequest'
 import './css/login.css'
 import logo from '../images/logo.png'
 
 const form = {
   userName: '',
   password: '',
-  remember: false
+  repeatPassword: ''
 }
 
 const Register = () => {
@@ -30,6 +31,26 @@ const Register = () => {
 
   const registerSubmit = (userInfo) => {
     console.log(userInfo)
+    http(window.interface.register, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: userInfo.userName,
+        password: userInfo.password,
+      })
+    }).then((data) => {
+      console.log(data)
+      if (JSON.parse(data).data) {
+        message.success('注册成功')
+        setTimeout(() => {
+          hashHistory.push('/index')
+        }, 2000)
+      } else {
+        message.success(`注册失败, ${JSON.parse(data).data}`)
+      }
+    })
   }
 
   return (

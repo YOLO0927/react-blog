@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import LoginComponent from './components/Login'
 import { Link, hashHistory } from 'react-router'
 import { Row, Col, message } from 'antd'
+import http from './public/preRequest'
 import './css/login.css'
 import logo from '../images/logo.png'
 
@@ -29,20 +30,23 @@ const Login = () => {
   }
 
   const loginSubmit = (userInfo) => {
-    console.log(userInfo)
-    fetch('http://127.0.0.1:9309/signIn', {
+    http(window.interface.signin, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         username: userInfo.userName,
         password: userInfo.password,
       })
-    }).then((res) => {
-      console.log(res)
-      return res.text()
-    }).then( (data) => {
-      console.log(JSON.parse(data))
-      message.success(JSON.parse(data).message, 3)
-    } )
+    }).then((data) => {
+      if (JSON.parse(data).data) {
+        message.success('登录成功, 即将为您跳转至首页')
+        setTimeout(() => {
+          hashHistory.push('/index')
+        }, 2000)
+      }
+    })
   }
 
   return (
