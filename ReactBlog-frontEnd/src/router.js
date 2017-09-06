@@ -3,18 +3,21 @@
  */
 import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
-import App from './App';
+import Index from './index';
 import Login from './login'
 import Register from './register'
+import store from './redux/store'
+
+let listener = store.subscribe(() => {
+  console.log(store.getState())
+})
 
 const RouterConfig = ({ history }) => {
   return (
     <Router history={history}>
-      <Route path="/">
-        <Route path="index" component={App} />
-        <Route path="login" component={Login} />
-        <Route path="register" component={Register} />
-      </Route>
+      <Route path="/" component={Index} />
+      <Route path="login" component={Login} />
+      <Route path="register" component={Register} />
     </Router>
   )
 }

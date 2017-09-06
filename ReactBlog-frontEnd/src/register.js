@@ -45,7 +45,7 @@ const Register = () => {
       if (JSON.parse(data).data) {
         message.success('注册成功')
         setTimeout(() => {
-          hashHistory.push('/index')
+          hashHistory.push('/')
         }, 2000)
       } else {
         message.success(`注册失败, ${JSON.parse(data).data}`)

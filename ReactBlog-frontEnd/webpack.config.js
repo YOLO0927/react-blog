@@ -29,7 +29,7 @@ if (env === 'production') {
 module.exports = {
   entry: {
     fetch: 'whatwg-fetch',
-    index: './src/index.js'
+    app: './src/app.js'
   },   // webpack 入口文件组
   output: {
     path: path.resolve(__dirname, 'dist'),  // 利用 path 包合并当前目录地址下的 dist 文件夹

@@ -8,16 +8,12 @@ module.exports = {
   },
   register (userInfo) {
     return User.create(userInfo, function (err) {
-      if (err) {
-        return err
-      } else {
-        return true
-      }
+      return err ? err : true
     })
   },
   getUserByName (userInfo) {
-    return User.findOne(userInfo).then( (data) => {
-      return data ? true : false
+    return User.findOne(userInfo).lean().then( (data) => {
+      return data ? data : false
     } )
   }
 }

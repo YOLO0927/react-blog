@@ -1,24 +1,12 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router'
-import logo from '../images/logo.svg';
+/**
+ * Created by 47166 on 2017/8/14.
+ */
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { hashHistory } from 'react-router'
+import Router from './router'
 import './css/app.less';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>Let me go to <Link to="/login">login page</Link></p>
-        {this.props.children}
-      </div>
-    );
-  }
-}
-
-export default App;
+ReactDOM.render((
+  <Router history={hashHistory} />
+), document.getElementById('root'));

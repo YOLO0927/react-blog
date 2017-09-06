@@ -1,12 +1,22 @@
-/**
- * Created by 47166 on 2017/8/14.
- */
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { hashHistory } from 'react-router'
-import Router from './router'
+import React, { Component } from 'react';
+import { Link } from 'react-router'
+import Header from './header'
+import logo from '../images/logo.svg';
 import './css/index.less';
 
-ReactDOM.render((
-  <Router history={hashHistory} />
-), document.getElementById('root'));
+class Index extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Header />
+        <p className="App-intro">
+          To get started, edit <code>src/App.js</code> and save to reload.
+        </p>
+        <p>Let me go to <Link to="/login">login page</Link></p>
+        {this.props.children}
+      </div>
+    );
+  }
+}
+
+export default Index;

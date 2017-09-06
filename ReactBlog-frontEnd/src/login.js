@@ -3,6 +3,8 @@ import LoginComponent from './components/Login'
 import { Link, hashHistory } from 'react-router'
 import { Row, Col, message } from 'antd'
 import http from './public/preRequest'
+import { signIn } from './redux/actions'
+import store from './redux/store'
 import './css/login.css'
 import logo from '../images/logo.png'
 
@@ -40,10 +42,12 @@ const Login = () => {
         password: userInfo.password,
       })
     }).then((data) => {
-      if (JSON.parse(data).data) {
+      let res = JSON.parse(data)
+      if (res.data) {
         message.success('登录成功, 即将为您跳转至首页')
+        store.dispatch(signIn(res.data))
         setTimeout(() => {
-          hashHistory.push('/index')
+          hashHistory.push('/')
         }, 2000)
       }
     })

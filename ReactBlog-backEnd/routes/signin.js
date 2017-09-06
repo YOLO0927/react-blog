@@ -10,6 +10,7 @@ router.post('/', (req, res) => {
       name: reqBody.username,
       password: reqBody.password
     }).then((data) => {
+      delete data.password
       res.json({
         message: `操作成功`,
         code: `0`,
