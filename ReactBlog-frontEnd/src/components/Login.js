@@ -1,25 +1,26 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 
-const FormItem = Form.Item
+const FormItem = Form.Item;
 
 class LoginBox extends Component {
   constructor (props) {
-    super(props)
+    super(props);
+    this.props = props;
   }
-
   handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // console.log(this.props.form.getFieldsValue())
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.onSubmit(values)
+        this.props.onSubmit(values);
       }
     });
   }
 
   render () {
-    const { getFieldDecorator } = this.props.form
+    const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
         <FormItem>
@@ -32,7 +33,7 @@ class LoginBox extends Component {
                 }
               ]
             })(
-              <Input placeholder="用户名" prefix={<Icon type="user" style={{fontSize: 13}} />} />
+              <Input placeholder="用户名" prefix={<Icon type="user" style={{ fontSize: 13 }} />} />
             )
           }
         </FormItem>
@@ -53,7 +54,7 @@ class LoginBox extends Component {
         <FormItem>
           {getFieldDecorator('remember', {
             valuePropName: 'checked',
-            initialValue: true,
+            initialValue: true
           })(
             <Checkbox>记住我</Checkbox>
           )}
@@ -63,9 +64,13 @@ class LoginBox extends Component {
           </Button>
         </FormItem>
       </Form>
-    )
+    );
   }
 }
 
+LoginBox.propTypes = {
+  form: PropTypes.object.isRequired,
+  onSubmit: PropTypes.func.isRequired
+};
 
 export default Form.create()(LoginBox);

@@ -40,7 +40,14 @@ module.exports = {
     rules:[
       {
         test: /\.js$/,
-        include: [path.resolve(__dirname, './src')],
+        enforce: "pre",
+        include: [path.resolve(__dirname, './')],
+        exclude: '/node_modules/',
+        loader: 'eslint-loader'
+      },
+      {
+        test: /\.js$/,
+        include: path.join(__dirname, './src'),
         loader: 'babel-loader'
       },
       {

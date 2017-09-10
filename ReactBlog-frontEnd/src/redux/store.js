@@ -1,6 +1,6 @@
-import { createStore } from 'redux'
-import blog from './reducers'
+import { createStore } from 'redux';
+import blog from './reducers';
 
-let store = createStore(blog)
+const store = createStore(blog);
 
-export default store
+export default store;
